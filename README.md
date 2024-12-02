@@ -83,8 +83,3 @@ Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Th
 The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack.
 
 ---
-
-## Usage
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YourUsername/GPS-Spoofing-Attacks.git
