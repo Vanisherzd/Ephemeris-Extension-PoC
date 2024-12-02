@@ -1,5 +1,3 @@
-# Ephemeris-Extension-PoC
-A comprehensive study and proof-of-concept (PoC) demonstrating GPS spoofing attacks on mobile systems, including iOS and Android platforms, using the Ephemeris Extension Method to bypass GPS time verification.
 # Ephemeris Extension Attack: Bypassing GPS Time Verification on iOS Systems
 
 ## Researchers
@@ -11,6 +9,13 @@ National Kaohsiung University of Science and Technology
 
 ## Description
 A vulnerability exists in the GPS module of iOS systems (versions 13 to 18), allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing the device to accept incorrect geographic location data. This attack can be used to deceive GPS-dependent applications such as **navigation software**, **location-based verification services**, and **Apple CarPlay**.
+
+---
+
+## Experiment Video
+The following video demonstrates the Ephemeris Extension Attack on iOS systems:  
+
+[![Watch the demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)
 
 ---
 
@@ -76,3 +81,10 @@ Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Th
 
 ## Additional Notes
 The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack.
+
+---
+
+## Usage
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YourUsername/GPS-Spoofing-Attacks.git
