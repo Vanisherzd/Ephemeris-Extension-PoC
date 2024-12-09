@@ -8,7 +8,7 @@ National Kaohsiung University of Science and Technology
 ---
 
 ## Description
-A vulnerability exists in the GPS module of Android systems (versions 11 to 14), allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing the device to accept incorrect geographic location data. This attack can be used to deceive GPS-dependent applications such as **navigation software** and **location-based verification services**.
+A vulnerability exists in the GPS module of Android systems (versions 11 to 14), allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing the device to accept incorrect geographic location data. This attack can be used to deceive GPS-dependent applications such as **navigation software**, **location-based verification services**, and **Android Auto**.
 
 ---
 
@@ -45,7 +45,7 @@ Attackers can exploit this vulnerability using the following steps:
 ## Impact
 - **Confidentiality (C):** Low (mainly affects location accuracy).  
 - **Integrity (I):** High (can result in tampering with location-based business processes).  
-- **Availability (A):** High (may disrupt the functionality of navigation and verification services).
+- **Availability (A):** High (may disrupt the functionality of navigation and verification services, including Android Auto).
 
 ---
 
@@ -61,7 +61,7 @@ Attackers can exploit this vulnerability using the following steps:
 ---
 
 ## Evidence
-The vulnerability has been demonstrated using BladeRF xA4 and gps-sdr-sim to generate and broadcast fake GPS signals, successfully causing Android devices to accept spoofed GPS data and display incorrect location information.
+The vulnerability has been demonstrated using BladeRF xA4 and gps-sdr-sim to generate and broadcast fake GPS signals, successfully causing Android devices to accept spoofed GPS data and display incorrect location information. This includes the misrepresentation of navigation routes in Android Auto.
 
 ---
 
@@ -71,6 +71,6 @@ Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Th
 ---
 
 ## Additional Notes
-The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on Android systems.
+The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on Android systems. Android Auto navigation services were observed to be particularly affected during testing.
 
 ---
