@@ -8,25 +8,31 @@ National Kaohsiung University of Science and Technology
 ---
 
 ## Description
-A vulnerability exists in the GPS modules of both iOS (versions 13 to 18) and Android (versions 11 to 14) systems, allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing devices to accept incorrect geographic location data. Such attacks can deceive GPS-dependent applications, including **navigation software**, **location-based verification services**, and **Apple CarPlay**.
+A vulnerability exists in the GPS modules of both iOS (versions 13 to 18) and Android (versions 11 to 14) systems, allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing devices to accept incorrect geographic location data. Such attacks can deceive GPS-dependent applications, including **navigation software**, **location-based verification services**, **Apple CarPlay**, and **Android Auto**.
+
+---
+
+## Experiment Video
+The following video demonstrates the Ephemeris Extension Attack on iOS systems:  
+[![Watch the demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)
 
 ---
 
 ## Attack Type
-Wireless Radio Frequency (RF) Signal Spoofing
+Wireless Radio Frequency (RF) Signal Spoofing  
 
 ---
 
 ## Affected Products
 
 ### iOS Systems
-- **Versions:** iOS 13 to iOS 18
-- **Developer/Manufacturer:** Apple Inc.
+- **Versions:** iOS 13 to iOS 18  
+- **Developer/Manufacturer:** Apple Inc.  
 - **Website:** [https://www.apple.com](https://www.apple.com)
 
 ### Android Systems
-- **Versions:** Android 11 to Android 14
-- **Developer/Manufacturer:** Google LLC
+- **Versions:** Android 11 to Android 14  
+- **Developer/Manufacturer:** Google LLC  
 - **Website:** [https://www.android.com](https://www.android.com)
 
 ---
@@ -49,9 +55,9 @@ Attackers can exploit this vulnerability using the following steps:
 ---
 
 ## Impact
-- **Confidentiality (C):** Low (mainly affects location accuracy).
-- **Integrity (I):** High (can result in tampering with location-based business processes).
-- **Availability (A):** High (may disrupt the functionality of navigation and verification services, including Apple CarPlay).
+- **Confidentiality (C):** Low (mainly affects location accuracy).  
+- **Integrity (I):** High (can result in tampering with location-based business processes).  
+- **Availability (A):** High (may disrupt the functionality of navigation and verification services, including Apple CarPlay and Android Auto).
 
 ---
 
@@ -61,17 +67,19 @@ Attackers can exploit this vulnerability using the following steps:
 ---
 
 ## CWE Types
-- CWE-290: Authentication Bypass by Spoofing
-- CWE-295: Improper Certificate Validation
+- CWE-290: Authentication Bypass by Spoofing  
+- CWE-295: Improper Certificate Validation  
 
 ---
 
 ## Reference
-Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.
+Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.  
 
 ---
 
 ## Additional Notes
-The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on both iOS and Android systems.
+The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on both iOS and Android systems, including navigation services like Apple CarPlay and Android Auto.
 
 ---
+
+##
