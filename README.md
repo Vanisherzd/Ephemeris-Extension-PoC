@@ -12,12 +12,6 @@ A vulnerability exists in the GPS modules of both iOS (versions 13 to 18) and An
 
 ---
 
-## Experiment Video
-The following video demonstrates the Ephemeris Extension Attack on iOS systems:  
-[![Watch the demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)
-
----
-
 ## Attack Type
 Wireless Radio Frequency (RF) Signal Spoofing
 
