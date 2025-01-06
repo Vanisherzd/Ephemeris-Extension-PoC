@@ -8,7 +8,7 @@ National Kaohsiung University of Science and Technology
 ---
 
 ## Description
-A vulnerability exists in the GPS module of iOS systems (versions 13 to 18), allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing the device to accept incorrect geographic location data. This attack can be used to deceive GPS-dependent applications such as **navigation software**, **location-based verification services**, and **Apple CarPlay**.
+A vulnerability exists in the GPS module of iOS systems (versions 13 to 18), allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing the device to accept incorrect geographic location data. This attack can deceive GPS-dependent applications such as **navigation software**, **location-based verification services**, and **Apple CarPlay**.
 
 ---
 
@@ -19,8 +19,22 @@ The following video demonstrates the Ephemeris Extension Attack on iOS systems:
 
 ---
 
+## Experiment Results
+The following image shows the experimental results of the Ephemeris Extension Attack:
+
+![Experiment Results](./Result%20includes%20iPhone%20and%20Air%20Pods%20Pro%202.png)
+
+### Key Points:
+- **Original Location:** Kaohsiung, Taiwan (22°45'N, 120°20'E)  
+- **Spoofed Location:** Washington, D.C., USA (38°53'N, 77°2'W)  
+- **Affected Systems:**
+  - iPhone’s “Find My” feature displayed the spoofed location.
+  - AirPods Pro 2, with built-in location tracking, also reflected the altered GPS data.
+
+---
+
 ## Attack Type
-Wireless Radio Frequency (RF) Signal Spoofing  
+**Wireless Radio Frequency (RF) Signal Spoofing**
 
 ---
 
@@ -36,7 +50,7 @@ Wireless Radio Frequency (RF) Signal Spoofing
 Attackers can exploit this vulnerability using the following steps:
 
 1. **Obtain and Modify Ephemeris Data:**  
-   Download GPS navigation data from public sources (e.g., NASA CDDIS) and modify it to extend the time frame.
+   Download GPS navigation data from public sources (e.g., NASA CDDIS) and modify it to extend the time frame. The starting time for this experiment was set to **UTC+0, September 27, 8:48**.
 
 2. **Generate Fake GPS Signals:**  
    Use open-source tools such as `gps-sdr-sim` to create a fake GPS signal file (`gpssim.bin`) based on the modified ephemeris data.
@@ -46,6 +60,12 @@ Attackers can exploit this vulnerability using the following steps:
 
 4. **Achieve Location Spoofing:**  
    Target devices will process the fake signals, leading to incorrect location and time synchronization.
+
+---
+
+## Experiment Timeline
+- **17 Seconds:** Normal GPS signals began to be interfered with.  
+- **31 Seconds:** The spoofed GPS signal fully replaced the original, and the location was altered.  
 
 ---
 
@@ -62,8 +82,8 @@ Attackers can exploit this vulnerability using the following steps:
 ---
 
 ## CWE Types
-- CWE-290: Authentication Bypass by Spoofing  
-- CWE-295: Improper Certificate Validation  
+- **CWE-290:** Authentication Bypass by Spoofing  
+- **CWE-295:** Improper Certificate Validation  
 
 ---
 
