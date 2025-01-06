@@ -12,9 +12,14 @@ A vulnerability exists in the GPS modules of both iOS (versions 13 to 18) and An
 
 ---
 
-## Experiment Video
-The following video demonstrates the Ephemeris Extension Attack on iOS systems:  
-[![Watch the demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)
+## Experiment Videos
+The following videos demonstrate the Ephemeris Extension Attack on iOS and Android systems:  
+
+1. **iOS Demonstration**  
+   [![Watch the iOS demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)  
+
+2. **Android Demonstration**  
+   [![Watch the Android demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
 
 ---
 
@@ -72,8 +77,12 @@ Attackers can exploit this vulnerability using the following steps:
 
 ---
 
-## Reference
-Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.  
+## References
+1. Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.  
+
+2. Experiment videos:  
+   - [iOS Demonstration](https://youtu.be/TGCezlx4FQI)  
+   - [Android Demonstration](https://youtu.be/Zb3lNryc4sc)
 
 ---
 
@@ -81,5 +90,3 @@ Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Th
 The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on both iOS and Android systems, including navigation services like Apple CarPlay and Android Auto.
 
 ---
-
-##
