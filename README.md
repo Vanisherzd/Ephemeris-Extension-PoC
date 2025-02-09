@@ -19,7 +19,7 @@ The following videos demonstrate the Ephemeris Extension Attack on iOS and Andro
    [![Watch the iOS demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)  
 
 2. **iPhone & Air Pods Pro2 Demonstration**  
-   [![Watch the Android demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
+   [![Watch the iPhone & Air Pods Pro2 demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
 
 ---
 
