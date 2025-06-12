@@ -80,9 +80,17 @@ Attackers can exploit this vulnerability using the following steps:
 ## References
 1. Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.  
 
-2. Experiment videos:  
-   - [iOS Demonstration](https://youtu.be/TGCezlx4FQI)  
+2. Experiment videos:
+   - [iOS Demonstration](https://youtu.be/TGCezlx4FQI)
    - [Android Demonstration](https://youtu.be/Zb3lNryc4sc)
+
+---
+
+## Ephemeris Extension Script
+The repository includes `ephemeris_extension.py` for adjusting navigation data files.
+Run the script from the command line and follow the prompts for the day of year
+and two-digit year. The processed file is saved in the same directory as the
+original and can be used with `gps-sdr-sim`.
 
 ---
 
