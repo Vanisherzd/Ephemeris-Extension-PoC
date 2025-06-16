@@ -1,7 +1,7 @@
 # Ephemeris Extension Attack: Bypassing GPS Time Verification on Mobile Systems
 
 ## Researchers
-Qi-Jie Huang, Zhen-Dong Lai, Hong-Bin Li, Jieh-Cian Wu  
+Qi-Jie Huang, Zhen-Dong Lai, Yu-Han Liu, Jieh-Cian Wu  
 Department of Computer and Communication Engineering  
 National Kaohsiung University of Science and Technology  
 
