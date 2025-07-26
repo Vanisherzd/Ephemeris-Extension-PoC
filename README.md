@@ -18,8 +18,8 @@ The following videos demonstrate the Ephemeris Extension Attack on iOS and Andro
 1. **iOS Demonstration**  
    [![Watch the iOS demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)  
 
-2. **iPhone & Air Pods Pro2 Demonstration**  
-   [![Watch the iPhone & Air Pods Pro2 demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
+2. **iPhone & AirPods Pro 2 Demonstration**  
+   [![Watch the iPhone & AirPods Pro 2 demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
 
 ---
 
@@ -96,5 +96,6 @@ original and can be used with `gps-sdr-sim`.
 
 ## Additional Notes
 The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on both iOS and Android systems, including navigation services like Apple CarPlay and Android Auto.
-
+## Running Tests
+Run `pytest` from the repository root to check for unclosed Markdown code blocks.
 ---

@@ -12,14 +12,14 @@ A vulnerability exists in the GPS modules of both iOS (versions 13 to 18) and An
 
 ---
 
-## Experiment Video
+## Experiment Videos
 The following videos demonstrate the Ephemeris Extension Attack on both iOS and Android systems:  
 
 1. **iOS Demonstration**  
    [![iOS Demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)
 
-2. **iPhone & Air Pods Pro2 Demonstration**  
-   [![iPhone & Air Pods Pro2 Demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
+2. **iPhone & AirPods Pro 2 Demonstration**  
+   [![iPhone & AirPods Pro 2 Demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
 
 ---
 
@@ -101,3 +101,5 @@ The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim`
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/YourRepository/Ephemeris-Extension-PoC.git
+   ```
+No additional steps are required.
