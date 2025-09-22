@@ -1,101 +1,88 @@
-# Ephemeris Extension Attack: Bypassing GPS Time Verification on Mobile Systems
+# Ephemeris Extension Abuse: Demonstrating GNSS Signal Misuse on Mobile Devices
 
 ## Researchers
 Qi-Jie Huang, Zhen-Dong Lai, Yu-Han Liu, Jieh-Cian Wu  
 Department of Computer and Communication Engineering  
-National Kaohsiung University of Science and Technology  
+National Kaohsiung University of Science and Technology
 
 ---
 
-## Description
-A vulnerability exists in the GPS modules of both iOS (versions 13 to 18) and Android (versions 11 to 14) systems, allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing devices to accept incorrect geographic location data. Such attacks can deceive GPS-dependent applications, including **navigation software**, **location-based verification services**, **Apple CarPlay**, and **Android Auto**.
+## What This Project Shows
+The Ephemeris Extension Method (EEM) is a **signal-spoofing abuse scenario**. It does not exploit a software bug in iOS or Android; instead it repurposes how GNSS receivers legitimately trust freshly broadcast ephemeris data. By stretching the time tags inside a valid-looking navigation message, we can keep spoofed GPS satellites "alive" longer than the GNSS specification anticipates. Mobile devices then continue to produce coherent time and position solutions from forged signals.
 
 ---
 
-## Experiment Videos
-The following videos demonstrate the Ephemeris Extension Attack on iOS and Android systems:  
+## Why It Is Classified as Abuse, Not a Vulnerability
+- **Specification-compliant inputs:** The forged navigation frames respect GPS ICD structures and parity. Receivers accept them because they have no reason, within the standard, to reject timely ephemerides.
+- **No privilege escalation on the platform:** Neither iOS nor Android code is bypassed; radios simply ingest RF that emulates space segment behaviour.
+- **Requires RF access:** An adversary must already be capable of radiating on L1, so this is an operational misuse of GNSS trust rather than a patchable OS flaw.
 
-1. **iOS Demonstration**  
-   [![Watch the iOS demonstration](https://img.youtube.com/vi/TGCezlx4FQI/0.jpg)](https://youtu.be/TGCezlx4FQI)  
-
-2. **iPhone & AirPods Pro 2 Demonstration**  
-   [![Watch the iPhone & AirPods Pro 2 demonstration](https://img.youtube.com/vi/Zb3lNryc4sc/0.jpg)](https://youtu.be/Zb3lNryc4sc)
+This repo therefore documents the conditions under which EEM can be abused and offers tooling to reproduce the phenomenon in controlled environments.
 
 ---
 
-## Attack Type
-Wireless Radio Frequency (RF) Signal Spoofing  
+## Demonstration Videos
+1. **iOS field test** – [YouTube link](https://youtu.be/TGCezlx4FQI)  
+2. **iPhone & AirPods Pro 2 test** – [YouTube link](https://youtu.be/Zb3lNryc4sc)
 
 ---
 
-## Affected Products
-
-### iOS Systems
-- **Versions:** iOS 13 to iOS 18  
-- **Developer/Manufacturer:** Apple Inc.  
-- **Website:** [https://www.apple.com](https://www.apple.com)
-
-### Android Systems
-- **Versions:** Android 11 to Android 14  
-- **Developer/Manufacturer:** Google LLC  
-- **Website:** [https://www.android.com](https://www.android.com)
+## Attack Workflow
+1. **Fetch navigation data** from sources such as NASA CDDIS (RINEX BRDC/BRDM).
+2. **Extend the ephemeris lifetime** with the included `ephemeris_extension.py` script, adding a controlled offset to clock parameters.
+3. **Synthesize RF samples** using `gps-sdr-sim` or the companion `BDS-SDRSIM` project in this repository to create IQ recordings.
+4. **Transmit with SDR hardware** (e.g., bladeRF xA4, HackRF) at the GPS L1 frequency.
+5. **Observe spoofed solutions** on iOS 13–18 and Android 11–14 devices, including apps such as Apple CarPlay and Android Auto.
 
 ---
 
-## Vulnerability Details
-Attackers can exploit this vulnerability using the following steps:
-
-1. **Obtain and Modify Ephemeris Data:**  
-   Download GPS navigation data from public sources (e.g., NASA CDDIS) and modify it to extend the time frame.
-
-2. **Generate Fake GPS Signals:**  
-   Use open-source tools such as `gps-sdr-sim` to create a fake GPS signal file (`gpssim.bin`) based on the modified ephemeris data.
-
-3. **Transmit the Spoofed Signal:**  
-   Deploy Software-Defined Radio (SDR) devices such as BladeRF xA4 to broadcast the fake GPS signals over the L1 frequency band to the target devices.
-
-4. **Achieve Location Spoofing:**  
-   Target devices will process the fake signals, leading to incorrect location and time synchronization.
+## Relation to `BDS-SDRSIM`
+The `BDS-SDRSIM` directory provides a BeiDou B1I simulator that shares the same tooling pipeline. While EEM focuses on GPS L1, integrating `BDS-SDRSIM` lets researchers explore multi-constellation spoofing and compare mitigation ideas under identical lab setups. Both projects:
+- Consume broadcast ephemerides (RINEX 3.x) and adjust their timing parameters.
+- Output baseband IQ suitable for software-defined radios.
+- Highlight the trust assumptions GNSS receivers make when presented with syntactically correct navigation frames.
 
 ---
 
-## Impact
-- **Confidentiality (C):** Low (mainly affects location accuracy).  
-- **Integrity (I):** High (can result in tampering with location-based business processes).  
-- **Availability (A):** High (may disrupt the functionality of navigation and verification services, including Apple CarPlay and Android Auto).
+## Impact and Practical Constraints
+- **Integrity risk:** Location and time can be falsified for dependent services (navigation, geofencing, time-based authentication).
+- **Operational challenges:** Requires RF line-of-sight, sufficient power, and careful alignment to avoid detection. Outdoor experiments demand regulatory approval.
+- **Mitigation avenues:** Cross-checking with inertial sensors, encrypted signals, assisted-GNSS sanity checks, or multi-constellation consistency testing.
 
 ---
 
-## CVSS v3.1 Vector
-`AV:A/AC:H/PR:N/UI:N/S:U/C:L/I:H/A:H`
+## Using the Ephemeris Extension Script
+```bash
+python3 ephemeris_extension.py --rinex /path/to/brdc1760.24n --offset-hours 2 \
+        --workdir /path/to/output
+```
+- The script clones the final navigation block, extends the time of clock (TOC), time of ephemeris (TOE), and transmission times, then writes a suffixed file ready for simulators.
+- Specify an explicit working directory to avoid the historical hard-coded path.
+
+See `python3 ephemeris_extension.py --help` for all options.
 
 ---
 
-## CWE Types
-- CWE-290: Authentication Bypass by Spoofing  
-- CWE-295: Improper Certificate Validation  
+## Running Simulations
+1. Generate the spoofed navigation file with the script above.
+2. Use `gps-sdr-sim` or `BDS-SDRSIM` to produce `gpssim.bin` (GPS) or `beidou_b1i.bin` (BeiDou) IQ samples.
+3. Replay the IQ file with your SDR transmitter. Tune gain cautiously to maintain lawful emissions.
+4. Validate on isolated test devices before attempting any field study.
 
 ---
 
-## References
-1. Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.  
+## Research Context
+- Huang, Qi-Jie. *A Study of GPS Spoofing Attack to Mobile Terminals.* Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.
 
-2. Experiment videos:
-   - [iOS Demonstration](https://youtu.be/TGCezlx4FQI)
-   - [Android Demonstration](https://youtu.be/Zb3lNryc4sc)
+Experiments covered indoor offices and controlled outdoor lots. The abuse worked consistently across modern iPhone and Android devices, even when paired with vehicle infotainment systems.
 
 ---
 
-## Ephemeris Extension Script
-The repository includes `ephemeris_extension.py` for adjusting navigation data files.
-Run the script from the command line and follow the prompts for the day of year
-and two-digit year. The processed file is saved in the same directory as the
-original and can be used with `gps-sdr-sim`.
+## Tests
+Run the Markdown hygiene test with:
+```bash
+pytest
+```
+The suite ensures documentation code fences remain well-formed.
 
----
-
-## Additional Notes
-The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on both iOS and Android systems, including navigation services like Apple CarPlay and Android Auto.
-## Running Tests
-Run `pytest` from the repository root to check for unclosed Markdown code blocks.
 ---

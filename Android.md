@@ -1,76 +1,50 @@
-# Ephemeris Extension Attack: Bypassing GPS Time Verification on Android Systems
+# Ephemeris Extension Abuse on Android Devices
 
 ## Researchers
 Qi-Jie Huang, Zhen-Dong Lai, Yu-Han Liu, Jieh-Cian Wu  
 Department of Computer and Communication Engineering  
-National Kaohsiung University of Science and Technology  
+National Kaohsiung University of Science and Technology
 
 ---
 
-## Description
-A vulnerability exists in the GPS module of Android systems (versions 11 to 14), allowing attackers to exploit the **Ephemeris Extension Method** to generate fake GPS signals synchronized with the current time. This bypasses the time verification mechanism, causing the device to accept incorrect geographic location data. This attack can be used to deceive GPS-dependent applications such as **navigation software**, **location-based verification services**, and **Android Auto**.
+## Abuse Scenario Summary
+Android 11–14 phones faithfully ingest GPS L1 ephemeris frames that comply with the ICD. When an attacker radiates forged frames whose time-of-clock and time-of-ephemeris fields are **artificially extended**, the handset maintains navigation fixes sourced entirely from spoofed satellites. This is an abuse of GNSS trust assumptions rather than a defect in the Android OS.
 
 ---
 
-## Attack Type
-Wireless Radio Frequency (RF) Signal Spoofing  
+## Distinguishing Factors
+- **Standards-conforming broadcast:** The spoofed message passes the parity and structure checks implemented inside GNSS chipsets.
+- **Radio-only capability required:** Adversaries need SDR hardware and RF access; no exploit code executes on Android.
+- **Abuse of timing slack:** Extending ephemeris validity shifts the acceptable window without modifying firmware.
 
 ---
 
-## Affected Products
-- **Product Name:** Android Systems  
-- **Versions:** Android 11 to Android 14  
-- **Developer/Manufacturer:** Google LLC  
-- **Website:** [https://www.android.com](https://www.android.com)
+## Reproduction Pipeline
+1. Collect RINEX navigation data (BRDC/BRDM) from NASA CDDIS or other MGEX mirrors.
+2. Run `python3 ephemeris_extension.py --rinex <file> --offset-hours 2` to build a spoof-ready navigation set.
+3. Generate IQ samples with `gps-sdr-sim` or the in-repo `BDS-SDRSIM` simulator (for BeiDou or multi-constellation comparison).
+4. Replay the IQ stream over L1 using a bladeRF xA4, HackRF, or similar SDR.
+5. Monitor Android Auto, Google Maps, or custom location-based apps to observe coerced coordinates and time.
 
 ---
 
-## Vulnerability Details
-Attackers can exploit this vulnerability using the following steps:
-
-1. **Obtain and Modify Ephemeris Data:**  
-   Download GPS navigation data from public sources (e.g., NASA CDDIS) and modify it to extend the time frame.
-
-2. **Generate Fake GPS Signals:**  
-   Use open-source tools such as `gps-sdr-sim` to create a fake GPS signal file (`gpssim.bin`) based on the modified ephemeris data.
-
-3. **Transmit the Spoofed Signal:**  
-   Deploy Software-Defined Radio (SDR) devices such as BladeRF xA4 to broadcast the fake GPS signals over the L1 frequency band to the target Android devices.
-
-4. **Achieve Location Spoofing:**  
-   Target devices will process the fake signals, leading to incorrect location and time synchronization.
+## Observed Impact and Limitations
+- **Integrity:** Navigation routes, ride-hailing pickup points, and time-based one-time passwords relying on GPS can be steered off-course.
+- **Availability:** Receivers may become stuck on spoofed satellites, delaying recovery after transmission stops.
+- **Constraints:** Requires line-of-sight and careful gain control. Multi-constellation devices may recover faster if other constellations remain authentic.
 
 ---
 
-## Impact
-- **Confidentiality (C):** Low (mainly affects location accuracy).  
-- **Integrity (I):** High (can result in tampering with location-based business processes).  
-- **Availability (A):** High (may disrupt the functionality of navigation and verification services, including Android Auto).
+## Tooling Notes
+- `ephemeris_extension.py` clones the most recent hour block, advances TOC/TOE by a configurable offset, and saves the result for simulators.
+- `BDS-SDRSIM` offers a BeiDou baseband generator that shares the same workflow, making it straightforward to test cross-constellation defences.
 
 ---
 
-## CVSS v3.1 Vector
-`AV:A/AC:H/PR:N/UI:N/S:U/C:L/I:H/A:H`
+## Reference Material
+- Huang, Qi-Jie. *A Study of GPS Spoofing Attack to Mobile Terminals.* Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.
+- Demonstration video: [Android Auto spoofing sequence](https://youtu.be/Zb3lNryc4sc).
 
----
-
-## CWE Types
-- CWE-290: Authentication Bypass by Spoofing  
-- CWE-295: Improper Certificate Validation  
-
----
-
-## Evidence
-The vulnerability has been demonstrated using BladeRF xA4 and gps-sdr-sim to generate and broadcast fake GPS signals, successfully causing Android devices to accept spoofed GPS data and display incorrect location information. This includes the misrepresentation of navigation routes in Android Auto.
-
----
-
-## Reference
-Huang, Qi-Jie. "A Study of GPS Spoofing Attack to Mobile Terminals." Master's Thesis, National Kaohsiung University of Science and Technology, July 2024.  
-
----
-
-## Additional Notes
-The research was conducted using BladeRF xA4 as the SDR device and `gps-sdr-sim` for generating spoofed GPS signals. Experiments were performed in both indoor and outdoor environments, confirming the effectiveness and broad applicability of the Ephemeris Extension Attack on Android systems. Android Auto navigation services were observed to be particularly affected during testing.
+All experiments were performed in controlled environments with regulatory compliance.
 
 ---
